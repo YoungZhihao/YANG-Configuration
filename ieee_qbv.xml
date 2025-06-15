@@ -1,0 +1,89 @@
+<rpc xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" message-id="101">
+  <edit-config>
+    <target>
+      <running/>
+    </target>
+    <config>                                                                                //edit config 指令
+      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+        <interface>
+          <name>iwin</name>
+          <type/>
+          <bridge-port xmlns="urn:ieee:std:802.1Q:yang:ieee802-dot1q-bridge">
+            <gate-parameter-table xmlns="urn:ieee:std:802.1Q:yang:ieee802-dot1q-sched">
+              <queue-max-sdu-table>
+                <traffic-class>7</traffic-class>
+                <queue-max-sdu>1024</queue-max-sdu>
+              </queue-max-sdu-table>
+              <queue-max-sdu-table>
+                <traffic-class>6</traffic-class>
+                <queue-max-sdu>1024</queue-max-sdu>
+              </queue-max-sdu-table>
+              <queue-max-sdu-table>
+                <traffic-class>5</traffic-class>
+                <queue-max-sdu>1024</queue-max-sdu>
+              </queue-max-sdu-table>
+              <queue-max-sdu-table>
+                <traffic-class>4</traffic-class>
+                <queue-max-sdu>1024</queue-max-sdu>
+              </queue-max-sdu-table>
+              <queue-max-sdu-table>
+                <traffic-class>3</traffic-class>
+                <queue-max-sdu>1024</queue-max-sdu>
+              </queue-max-sdu-table>
+              <queue-max-sdu-table>
+                <traffic-class>2</traffic-class>
+                <queue-max-sdu>1024</queue-max-sdu>
+              </queue-max-sdu-table>
+              <queue-max-sdu-table>
+                <traffic-class>1</traffic-class>
+                <queue-max-sdu>1024</queue-max-sdu>
+              </queue-max-sdu-table>
+              <queue-max-sdu-table>
+                <traffic-class>0</traffic-class>
+                <queue-max-sdu>1024</queue-max-sdu>
+              </queue-max-sdu-table>                                                   //队列及其最大SDU
+              <gate-enabled>true</gate-enabled>                               //门控激活
+              <admin-gate-states>0</admin-gate-states>
+              <admin-control-list>
+                <gate-control-entry>
+                  <index>1</index>
+                  <operation-name>set-gate-states</operation-name>
+                  <time-interval-value>7000</time-interval-value>
+                  <gate-states-value>128</gate-states-value>
+                </gate-control-entry>
+                <gate-control-entry>
+                  <index>2</index>
+                  <operation-name>set-and-hold-mac</operation-name>
+                  <time-interval-value>6000</time-interval-value>
+                  <gate-states-value>64</gate-states-value>
+                </gate-control-entry>
+                <gate-control-entry>
+                  <index>3</index>
+                  <operation-name>set-and-release-mac</operation-name>
+                  <time-interval-value>5000</time-interval-value>
+                  <gate-states-value>32</gate-states-value>
+                </gate-control-entry> 							    //GCL设置（包括门控操作，门控状态与持续时间）
+              </admin-control-list>
+              <admin-cycle-time>
+                <numerator>2000</numerator>
+                <denominator>1000</denominator>				   //门控周期值设定=分子/分母（门控最大周期值以内）
+              </admin-cycle-time>
+              <admin-cycle-time-extension>1000</admin-cycle-time-extension> //安装新的周期配置时允许扩展端口的门控周期的最大时间量
+              <admin-base-time>
+                <seconds/>
+                <nanoseconds>1500</nanoseconds>				   //控制周期开始时的基准时间
+              </admin-base-time>
+              <config-change>true</config-change>				   //配置更改的开始
+              <supported-list-max>100</supported-list-max>		   //GCL条目最大值设定
+              <supported-cycle-max>
+                <numerator>20000</numerator>
+                <denominator>1000</denominator>				   //门控最大周期值设定
+              </supported-cycle-max>
+              <supported-interval-max>20000</supported-interval-max>	//GCL中持续时间最大值设定
+            </gate-parameter-table>
+          </bridge-port>
+        </interface>
+      </interfaces>
+    </config>
+  </edit-config>
+</rpc>
